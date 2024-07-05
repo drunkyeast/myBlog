@@ -2,13 +2,14 @@
 const express = require('express');
 // 处理路径
 const path = require('path');
+// 引入body-parser模块, 用于处理post请求参数
+const bodyParser = require('body-parser');
 // 创建网站服务器, 要监听一个端口才能提供服务
 const app = express();
-
 // 数据库连接
 require('./model/connect');
-
-
+// 用bodyParser处理poset请求参数
+app.use(bodyParser.urlencoded({extended: false}));
 // 告诉express框架模板位置
 app.set('views', path.join(__dirname, 'views'));
 // 告诉express框架的默认后缀是什么
