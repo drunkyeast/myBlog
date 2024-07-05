@@ -1,5 +1,6 @@
 // 引用express框架
 const express = require('express');
+const bcrypt = require('bcrypt');
 // 导入用户集合构造函数
 const {User} = require('../model/user');
 // 创建博客页面展示内容
@@ -26,7 +27,11 @@ admin.post('/login', async(req, res) => {
     // 查询到了
     if (user) {
         // 将客户端传递过来的密码与用户信息中的密码进行比对
-        if (password == user.password){
+        let isValid = await bcrypt.compare(password, user.password);
+        console.log(password);
+        console.log(user.password);
+        if (isValid){
+            req.username = user.username;
             res.send('登录成功');
         } else {
             res.status(400).render('admin/error', {msg: '邮箱地址或密码错误'});
@@ -39,7 +44,9 @@ admin.post('/login', async(req, res) => {
 
 // 创建用户列表路由
 admin.get('/user', (req,res) => {
-    res.render('admin/user');
+    res.render('admin/user', {
+        msg: req.username
+    });
 });
 // 将路由对象作为模板成员进行导出
 module.exports = admin;
