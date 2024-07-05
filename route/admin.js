@@ -30,7 +30,7 @@ admin.post('/login', async(req, res) => {
         let isValid = await bcrypt.compare(password, user.password);
         if (isValid){
             req.session.username = user.username; // 一切都很自动,自动存储到session. 
-            req.app.locals.userInfo = user; // 这个很关键啊, req能调用app, locals表express框架的本地变量, userInfo可以在其他模板中直接{{userInfo}}获取.
+            //req.app.locals.userInfo = user; // 这个很关键啊, req能调用app, locals表express框架的本地变量, userInfo可以在其他模板中直接{{userInfo}}获取.
             res.redirect('/admin/user');
         } else {
             res.status(400).render('admin/error', {msg: '邮箱地址或密码错误'});
