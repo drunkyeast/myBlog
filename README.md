@@ -15,5 +15,7 @@ mongoose版本问题, 最后mongoose版本安装的`npm install express mongoose
 #### vim多行注释操作
 ctrl + shift + q进入 Visual Block模式, 然后选择多行. 按shift + I, 然输入在单行输入//, 再按两次Esc.
 
-#### npm install body-parser
+#### 补充安装
+npm install body-parser
+npm install express-session
 

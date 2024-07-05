@@ -1,6 +1,6 @@
 # 忽略所有的 .log 文件
 *.log
-
+*.swp
 # 忽略 node_modules 目录
 node_modules/
 
@@ -18,3 +18,4 @@ secret.txt
 
 # 忽略静态资源
 /public/
+

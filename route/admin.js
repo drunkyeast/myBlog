@@ -28,11 +28,10 @@ admin.post('/login', async(req, res) => {
     if (user) {
         // 将客户端传递过来的密码与用户信息中的密码进行比对
         let isValid = await bcrypt.compare(password, user.password);
-        console.log(password);
-        console.log(user.password);
         if (isValid){
-            req.username = user.username;
-            res.send('登录成功');
+            req.session.username = user.username; // 一切都很自动,自动存储到session. 
+            req.app.locals.userInfo = user; // 这个很关键啊, req能调用app, locals表express框架的本地变量, userInfo可以在其他模板中直接{{userInfo}}获取.
+            res.redirect('/admin/user');
         } else {
             res.status(400).render('admin/error', {msg: '邮箱地址或密码错误'});
         }
@@ -44,9 +43,7 @@ admin.post('/login', async(req, res) => {
 
 // 创建用户列表路由
 admin.get('/user', (req,res) => {
-    res.render('admin/user', {
-        msg: req.username
-    });
+    res.render('admin/user');
 });
 // 将路由对象作为模板成员进行导出
 module.exports = admin;
