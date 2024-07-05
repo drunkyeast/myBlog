@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const home = require('./route/home.js');
 const admin = require('./route/admin'); // .js可以省略.
 
+// 拦截请求 如果用户没有登录就访问/admin显然是不行的嘛, 就不能匹配后续的/admin.
 app.use('/admin', require('./middleware/loginGuard.js'));
 
 app.use('/home', home);
