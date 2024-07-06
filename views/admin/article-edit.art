@@ -1,9 +1,10 @@
 {{extend './common/layout.art'}}
+
 {{block 'main'}}
     {{include './common/header.art'}}
     <!-- 主体内容 -->
     <div class="content">
-       {{include './common/aside.art'}} 
+        {{include './common/aside.art'}}
         <div class="main">
             <!-- 分类标题 -->
             <div class="title">
@@ -45,7 +46,7 @@
     <!-- /主体内容 -->
 {{/block}}
 
-{{/block 'script'}}
+{{block 'script'}}
     <script src="/admin/lib/ckeditor5/ckeditor.js"></script>
     <script type="text/javascript">
     

@@ -19,3 +19,4 @@ secret.txt
 # 忽略静态资源
 /public/
 
+.vscode

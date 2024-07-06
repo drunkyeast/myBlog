@@ -1,15 +1,15 @@
 {{extend './common/layout.art'}}
-{{block 'main'}}
 
-    <!-- 子模板的相对路径是相对于当前文件,它是由模板引擎解析, 而不是浏览器解析 -->
+{{block 'main'}}
+    <!-- 子模板的相对路径相对的就是当前文件 因为它是由模板引擎解析的 而不是浏览器 -->
     {{include './common/header.art'}}
     <!-- 主体内容 -->
     <div class="content">
-        {{include './common/aside.art'}}
+    	{{include './common/aside.art'}}
         <div class="main">
         	<!-- 分类标题 -->
             <div class="title">
-                <h4>用户: {{userInfo && userInfo.username}}</h4>
+                <h4>用户</h4>
                 <span>找到1个用户</span>
                 <a href="/admin/user-edit" class="btn btn-primary new">新增用户</a>
             </div>
@@ -27,58 +27,36 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{each users}}
                     <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>超级管理员</td>
-                        <td>正常</td>
+                        <td>{{@$value._id}}</td>
+                        <td>{{$value.username}}</td>
+                        <td>{{$value.email}}</td>
+                        <td>{{$value.role == 'admin' ? '超级管理员': '普通用户'}}</td>
+                        <td>{{$value.state == 0 ? '启用': '禁用'}}</td>
                         <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
+                            <a href="/admin/user-edit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
                             <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
                         </td>
                     </tr>
-                    <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>普通用户</td>
-                        <td>禁用</td>
-                        <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>普通用户</td>
-                        <td>启用</td>
-                        <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
-                        </td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
             <!-- /内容列表 -->
             <!-- 分页 -->
             <ul class="pagination">
-                <li>
-                    <a href="#">
-			        <span>&laquo;</span>
-			      </a>
+                <li style="display: <%=page-1 < 1 ? 'none' : 'inline' %>">
+                    <a href="/admin/user?page=<%=page-1%>">
+    		        <span>&laquo;</span>
+    		      </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#">
-			        <span>&raquo;</span>
-			      </a>
+                <% for (var i = 1; i <= total; i++) { %>
+                <li><a href="/admin/user?page=<%=i %>">{{i}}</a></li>
+                <% } %>
+                <li style="display: <%= page-0+1 > total ? 'none' : 'inline' %>">
+                    <a href="/admin/user?page=<%=page-0+1%>">
+    		        <span>&raquo;</span>
+    		      </a>
                 </li>
             </ul>
             <!-- /分页 -->
@@ -103,5 +81,4 @@
             </form>
         </div>
     </div>
-
 {{/block}}

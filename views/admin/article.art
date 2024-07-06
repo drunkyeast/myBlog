@@ -1,12 +1,10 @@
 {{extend './common/layout.art'}}
 
 {{block 'main'}}
-    
     {{include './common/header.art'}}
-    <!-- /头部 -->
     <!-- 主体内容 -->
     <div class="content">
-        {{include './common/aside.art'}}
+    	{{include './common/aside.art'}}
         <div class="main">
         	<!-- 分类标题 -->
             <div class="title">
@@ -64,8 +62,8 @@
             <ul class="pagination">
                 <li>
                     <a href="#">
-			        <span>&laquo;</span>
-			      </a>
+    		        <span>&laquo;</span>
+    		      </a>
                 </li>
                 <li><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
@@ -74,8 +72,8 @@
                 <li><a href="#">5</a></li>
                 <li>
                     <a href="#">
-			        <span>&raquo;</span>
-			      </a>
+    		        <span>&raquo;</span>
+    		      </a>
                 </li>
             </ul>
             <!-- /分页 -->
@@ -100,6 +98,4 @@
             </form>
         </div>
     </div>
-    <!-- /删除确认弹出框 -->
-
-{{/block}}
+{{/block}} 

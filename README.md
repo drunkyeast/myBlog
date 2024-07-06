@@ -25,3 +25,8 @@ npm install express-session
 3. `app.set('views', path.join(__dirname, 'views'));`, 哪些地方会使用呢? `res.render('admin/user-edit');`所以引用的地方是在nodejs的js文件中,而不是在标签文件. 但视图文件与静态文件在app.js中分别是app.set引入, 以及app.use引入. 导致的结论是视图文件的路由与静态资源的路由看着类似,但区别也很多. 结果是render里面的路径不能有`/`根目录这个东西.
 4. 总结: 分为两类:一类是在标签文件中,一类是在.js文件中. 标签文件中有`/`绝对路径,对应`public/`.
 
+#### 补充安装
+npm install joi
+用于验证信息格式.
+
+

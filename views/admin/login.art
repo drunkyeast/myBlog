@@ -34,7 +34,6 @@
     <script type="text/javascript">
         // 为表单添加提交事件
         $('#loginForm').on('submit', function () {
-            console.log('hello world');
             // 获取到表单中用户输入的内容
             var result = serializeToJson($(this))
             // 如果用户没有输入邮件地址的话
