@@ -33,3 +33,26 @@ npm install joi
 先说需求: 在前端点击删除按钮,前端弹出确认删除? 提交后后端接受,并从数据库中删除. 把删除后的结果再返回给前端.
 前端: 首先到/views/admin/user.art 下面找删除按钮哪个图标, 发现它在一个循环中(因为有多个用户信息,用户信息是后端用json格式传的), 里面有一个<i ...>...</i>这个i标签一般表示图标即删除图标. 给标签的class里面添加一个delete, 之后再script中通过选择器和触发click事件 `$('.delete').on('click', function() {...});` ,然后执行`var id = $(this).attr('data-id');`获得data-id的值, 而data-id的值又是通过`{{@$value._id}}`在i标签中获取的, 这涉及到了模板引擎art的一些语法, 前面说的循环{{each users}}也用的是art模板引擎的语法. 此时id值在脚本中. 然后执行`$('#deleteUserId').val(id);` 这相当于把id值传送到html的带有deleteUserId这个class的标签中, 这个标签是input标签, 同时input标签在form标签中. 为form标签添加上`action="/admin/delete" method="get"` 表示通过这样的URL get发送给服务器. 之后我再次点击提交按钮才提交. 总结:点击删除图标,触发脚本把id写到form表单中, 再次点击提交按钮, 从前端传给后端.
 后端: 根据/route/admin.js下的路由跳转到/route/admin/user-delete.js, 然后引用/model/user.js中的users, users是通过mongoose与mongodb交互的. 然后根据id从users中删除. 删除后会被`res.redirect('/admin/user');`~~重定向到/views/admin/user.art中.(冷知识: 前面关于路由说render不能加`/`,这儿redirect可以加`/`,虽然都是/views/admin中的文件.) 然后user.art又会根据art模板引擎进行渲染.~~ 注意我又犯错了, 这个从定向是URL的路径,到根据/route/admin.js的对/user的匹配,跳转到/route/admin/userPage.js中,在后端执行相关函数从数据库中找出所有用户users,同时根据users数目做分页处理得到page total参数,最后 `res.render('admin/user', { users: users, page: page, total: total });`. `这儿的admin/user是指/views/admin/user.art` (渲染模板在app.js指明了,这个render里面不能用`/`前面专门说过). 然后art模板引擎根据参数和user.art文件中的语法(例如循环),处理后传给前端. 前端就发现删除的用户没了.
+
+#### 另外再以article和article-edit为例,讲讲流程
+侧边栏: /views/common/aside.art中把链接`user.html`改成`/admin/user`. 逻辑与前面相同,通过前端的逻辑触发input,用URL/user.html请求,改成用URL/admin/user想服务器发送请求.
+服务器根据不同的URL渲染并返回不同的页面. 有一种交互方法是在路由的/route/admin/article.js文件中, 增加一个`req.app.locals.currentLink = 'article';`, 然后再aside.art中用`{{currentLink == 'article' ? 'active' : ''}}`来获取值,改变侧边栏的选中情况.
+同样的逻辑,在article-edit.art文件中,在作者信息哪里,利用`vallue={{@userInfo._id}}`显示用户相关信息.这个东西会在后端被art渲染引擎处理. 而这个user来源于哪里呢?? 答: 来源于res.render(xxx.art, {user: user}); 即在路由中的某个.js文件,在渲染时传递的参数.
+
+#### 补充安装
+npm install formidable@1.2.1, 尽量保持一致吧. 不然像joi那样不兼容挺烦人的.
+formidable第三方模块用于表单的提交, 支持二进制文件如图片等的提交.
+
+npm install dateformat@3.0.3  处理时间
+npm install mongoose-sex-page@1.2.4  处理分页
+
+#### 图片及时预览, 前端的代码太杂了
+var file = document.querySeletcor('#file');
+file.onchange = function() { ... } // 用户选择文件后
+var reader = new FileReader(); 
+reader.onload = function() { ... } // 监听onload事件
+......
+
+
+
+

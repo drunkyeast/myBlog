@@ -27,5 +27,12 @@ admin.post('/user-add', require('./admin/user-add'));
 // 实现删除
 admin.get('/delete', require('./admin/user-delete'));
 
+// 文章列表页面路由
+admin.get('/article', require('./admin/article'));
+
+// 文章编辑页面路由
+admin.get('/article-edit', require('./admin/article-edit'));
+
+
 // 将路由对象做为模块成员进行导出
 module.exports = admin;
