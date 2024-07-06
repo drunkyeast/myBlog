@@ -53,6 +53,7 @@ var reader = new FileReader();
 reader.onload = function() { ... } // 监听onload事件
 ......
 
-
+#### 大更新 dateFormat使用新语法代替旧语法
+现在博客可以正常登录,添加用户,删除用户,发布新文章,文章分页处理. 但此时还不能查看文章.
 
 
