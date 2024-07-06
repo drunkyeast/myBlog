@@ -54,6 +54,18 @@ reader.onload = function() { ... } // 监听onload事件
 ......
 
 #### 大更新 dateFormat使用新语法代替旧语法
+`<td>{{ $value.publishDate | dateFormat: 'yyyy-mm-dd' }}</td>`
 现在博客可以正常登录,添加用户,删除用户,发布新文章,文章分页处理. 但此时还不能查看文章.
 
+#### 补充安装
+npm install morgan@1.9.1
+npm install config@3.0.1
 
+#### 新知识点
+1. 博客封面展示的文字中不能有标签, 不嫩出现`&nbsp`这种东西. 批评一下华为雏鹰计划的习题就没处理好这个.
+default.art文件中 <div class="brief">{{@$value.content.replace(/<[^>]+>/g, '').substr(0, 150) + '...'}}</div>  利用正则表达式和@处理上诉问题.
+另外$value来源于哪里? 前面说过,后端/route下面的某个.js文件会调用res.render(xxx.art, {参数}), value就来源于render时额外传的参数!!
+
+2. 博客首页点击某个文章,前端传递这个文章的id给后端,后端查找后再传给前端. 具体细节略...
+
+3. 文章评论的流程: 评论放到数据库新的表中. 评论要与article和user关联,所有创建了aid和uid, 利用前面一样的隐藏域把aid和uid保存在评论表单中等待提交. 还有其他time, content字段. 提交后, 后端经过路由再把评论渲染到页面再传给前端. 具体细节略...
