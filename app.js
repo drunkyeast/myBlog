@@ -65,6 +65,11 @@ app.use('/admin', require('./middleware/loginGuard'));
 app.use('/home', home);
 app.use('/admin', admin);
 
+// 输入域名直接跳转到/home首页. 然后点击登录按钮才跳转到/admin/login. 目前只有超级用户可以增删文章和增删用户.
+app.get('/', (req, res) => {
+    res.redirect('/home');
+});
+
 app.use((err, req, res, next) => {
     // 将字符串对象转换为对象类型
     // JSON.parse() 
@@ -80,5 +85,5 @@ app.use((err, req, res, next) => {
 })
 
 // 监听端口
-app.listen(80);
+app.listen(3000);
 console.log('网站服务器启动成功, 请访问localhost')
