@@ -2,17 +2,21 @@
 <div class="header">
 	<div class="w1100">
 		<!-- 网站logo开始 -->
-		<h1 class="logo fl">
-			<a href="/home/default"><img src="images/logo.png" alt="黑马程序员"></a>
+		<!--
+		<h1 class="logo fl" style="text-align: center;">
+			
+			<a href="/home/"><img src="images/logo2.png" alt="物联网作业-myBlog" style="width: 200px; height: auto;"></a>
+
 		</h1>
+		-->
 		<!-- 网站logo结束 -->
 		<!-- 网站导航开始 -->
 		<ul class="navigation fr">
 			<li>
-				<a class="active" href="/home/index">首页</a>
+				<a class="active" href="/home/">首页</a>
 			</li>
 			<li>
-				<a href="#">登录</a>
+				<a href="/admin/login">登录</a>
 			</li>
 		</ul>
 		<!-- 网站导航结束 -->
